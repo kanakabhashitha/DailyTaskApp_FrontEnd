@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { Task } from 'src/app/task';
 import {FormControl, FormGroup, Validator, Validators} from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-task',
@@ -38,11 +39,29 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTask(id:any){
-    
-    this.dataService.deleteTask(id).subscribe(res => {
-      this.getTaskData();
-    })
 
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        this.dataService.deleteTask(id).subscribe(res => {
+          this.getTaskData();
+        });
+      }
+  
+    })
+    
   }
 
   
@@ -66,9 +85,30 @@ export class TaskComponent implements OnInit {
     this.insertFormState = 'block';
     this.updateFormState = 'none';
 
-    this.dataService.updatetData(id, this.task).subscribe(rs => {
-      this.getTaskData();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to Update this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Update it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Updated!',
+          'Your file has been updated.',
+          'success'
+        )
+
+        this.dataService.updatetData(id, this.task).subscribe(rs => {
+          this.getTaskData();
+        });
+
+      }
     })
+
+
 
   }
 
