@@ -4,5 +4,5 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Description
 
-DailyTaskApp is helps to manage daliy activity.
+DailyTaskApp is helps to manage our daily daliy activities.
 
