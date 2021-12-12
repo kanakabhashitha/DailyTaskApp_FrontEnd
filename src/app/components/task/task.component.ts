@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { Task } from 'src/app/task';
+import {FormControl, FormGroup, Validator, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-task',
@@ -96,5 +97,16 @@ export class TaskComponent implements OnInit {
 
   }
 
+  //validation
+  insertTaskForm = new FormGroup({
+
+    Task: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    TargetDate: new FormControl('')
+
+  });
+
+  get Task(){
+    return this.insertTaskForm.get('Task');
+  }
 
 }

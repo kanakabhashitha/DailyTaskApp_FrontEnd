@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { TaskComponent } from './components/task/task.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 
 const appRoutes: Routes =[
@@ -31,7 +32,8 @@ const appRoutes: Routes =[
     RouterModule.forRoot(appRoutes),
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

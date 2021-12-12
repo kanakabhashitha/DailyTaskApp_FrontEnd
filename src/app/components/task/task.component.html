@@ -1,7 +1,7 @@
 <hr>
 <!--isert form-->
 <div  class="container" [style.display]="insertFormState">
-  <form (ngSubmit)="insertData()" style="margin-bottom: 20px">
+  <form [formGroup]="insertTaskForm"  (ngSubmit)="insertData()" style="margin-bottom: 20px">
     <div class="form-group">
       <label for="task">Task</label>
       <input
@@ -10,8 +10,11 @@
         [(ngModel)]="task.task"
         class="form-control"
         placeholder="Enter task here"
-        required minlength="4" 
-      />
+        formControlName = "Task"
+        />
+        
+        <span class="error" *ngIf="Task?.invalid && Task?.touched">Task is required and minimum 5 characters length</span>
+
     </div>
     <div class="form-group">
       <label for="tagetDate">Target Date</label>
@@ -20,12 +23,12 @@
         name="targetDate"
         [(ngModel)]="task.targetDate"
         class="form-control"
-        required
+        formControlName = "TargetDate"
       />
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <Button style="margin-left: 15px" type="reset" class="btn btn-primary"
+    <button [disabled]="insertTaskForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+    <Button [disabled]="insertTaskForm.invalid" style="margin-left: 15px" type="reset" class="btn btn-primary"
       >Clear</Button
     >
   </form>
