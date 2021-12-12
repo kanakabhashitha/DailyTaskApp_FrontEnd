@@ -1,0 +1,115 @@
+<hr>
+<!--isert form-->
+<div  class="container" [style.display]="insertFormState">
+  <form (ngSubmit)="insertData()" style="margin-bottom: 20px">
+    <div class="form-group">
+      <label for="task">Task</label>
+      <input
+        type="text"
+        name="task"
+        [(ngModel)]="task.task"
+        class="form-control"
+        placeholder="Enter task here"
+        required minlength="4" 
+      />
+    </div>
+    <div class="form-group">
+      <label for="tagetDate">Target Date</label>
+      <input
+        type="date"
+        name="targetDate"
+        [(ngModel)]="task.targetDate"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <Button style="margin-left: 15px" type="reset" class="btn btn-primary"
+      >Clear</Button
+    >
+  </form>
+</div>
+
+
+<!--update form-->
+
+<div class="container" [style.display]="updateFormState" >
+  <form (ngSubmit)="updatetData(tasks.id)" style="margin-bottom: 20px" >
+    <div class="form-group">
+      <label for="task">Update Task</label>
+      <input
+        type="text"
+        name="updatetask"
+        [(ngModel)]="task.task"
+        class="form-control"
+        value="{{ tasks.task }}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="tagetDate">Update Target Date</label>
+      <input
+        type="date"
+        name="updatetargetDate"
+        [(ngModel)]="task.targetDate"
+        class="form-control"
+        value="{{ tasks.targetDate }}"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <Button style="margin-left: 15px" (click)="cancelButton()" class="btn btn-primary"
+      >Cancel</Button
+    >
+  </form>
+</div>
+
+
+<hr>
+
+<!--table-->
+<table class="table text-center" style="margin-top: 50px; font-weight: 500;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Task</th>
+      <th scope="col">Complete Status</th>
+      <th scope="col">Target Date</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.task }}</td>
+      
+      <td >
+
+        <div *ngIf="task.isCompleted  == 0 else elseblock" >
+            <img src="assets\images\notComplete.png" alt="not complete" style="width: 50px; height: 50px;">
+        </div>
+        <ng-template #elseblock>
+          <img src="assets\images\complete.png" alt="not complete" style="width: 50px; height: 50px;">
+        </ng-template>
+
+      </td>
+      
+      <td>{{ task.targetDate }}</td>
+      
+      <td>
+    
+        <button *ngIf="task.isCompleted  == 0" class="btn btn-primary btn-sm"  (click)="markAsTaskCompleted(task.id)">
+          Mark As Complete
+        </button>
+        <button *ngIf="task.isCompleted  == 1" class="btn btn-warning btn-sm"  (click)="markAsTaskNotCompleted(task.id)">
+          Mark As Not Complete
+        </button>
+        <button class="btn btn-warning btn-sm ml-2"  (click)="getTaskDataById(task.id)">
+          Update Task
+        </button>
+        <button class="btn btn-danger btn-sm ml-2" (click)="deleteTask(task.id)">
+          Delete Task
+        </button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
